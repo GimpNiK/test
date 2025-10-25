@@ -1,0 +1,36 @@
+name: Python Code Checks  # Название workflow
+
+on:  # Когда запускать: при push или PR
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  check-code:  # Имя джоба
+    runs-on: ubuntu-latest  # ОС для запуска (бесплатно для публичных репозиториев)
+
+    steps:
+    - name: Checkout code  # Скачать код из репозитория
+      uses: actions/checkout@v4
+
+    - name: Set up Python  # Установить Python (версия 3.9, можно изменить)
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies  # Установить зависимости (если есть requirements.txt)
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install flake8  # Установить flake8
+
+    - name: Lint with flake8  # Запустить проверку flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics  # Строгие проверки на ошибки
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics  # Более мягкие (настрой под PEP 8)
+
+    - name: Run tests (optional)  # Добавить тесты с pytest, если есть
+      run: |
+        pip install pytest
+        pytest  # Или укажи путь к тестам, например pytest tests/
