@@ -30,3 +30,18 @@ from typing import Dict
 def squares_dict(n:int) -> Dict[int,int]:
     return {i: i**2 for i in range(1, n+1)}
 print(squares_dict(10))
+
+# Повышенной сложности:
+# 5. Сгенерировать список Фибоначчи
+def fibonacci(n)->int:
+    """
+    Генератор последовательности Фибоначчи.
+    n: количество чисел для генерации.
+    """
+    a, b = 0, 1
+    for _ in range(n):
+        yield a  
+        a, b = b, a + b 
+
+fib = [i for i in fibonacci(10)]
+print(fib)
