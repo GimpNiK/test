@@ -24,3 +24,9 @@ def calculator(a: float, b: float, operation: str) -> float:
         case _:
             raise TypeError("Ошибка: неподдерживаемая операция. Используйте '+', '-', '*', '/'")
 print(calculator(2,3,"/"))
+
+# 10. Словарь квадратов чисел
+from typing import Dict
+def squares_dict(n:int) -> Dict[int,int]:
+    return {i: i**2 for i in range(1, n+1)}
+print(squares_dict(10))
