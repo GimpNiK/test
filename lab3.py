@@ -4,3 +4,10 @@
 
 # 5. Класс для сериализации объектов в JSON.
 # 9. Использовать abc для абстрактного класса.
+
+class Figure:
+    def square(self) -> float:
+        ...
+    def perimeter(self) -> float:
+        ...
+    
