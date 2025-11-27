@@ -24,8 +24,8 @@ def primes(n:int):
             prime_list.append(num)
             yield num
     
-for prime in primes(20):
-    print(prime)
+print([prime for prime in primes(30)])
+    
 
 factorials_square = map(lambda x: factorial(x) **2,[1,2,3,4])
 print( *factorials_square)
@@ -35,26 +35,21 @@ class Primes:
         self.n = n
     def __iter__(self):
         self._prime_list = []
-        self._count = 0
-        for num in range(2,self.n):
+        return self
+    def __next__(self):
+        prime_last = self._prime_list != [] and self._prime_list[-1] or 1
+        for num in range(prime_last + 1,self.n):
             for prime in self._prime_list:
                 if num % prime == 0:
                     break
                 if num < prime**2:
                     self._prime_list.append(num)
-                    break
+                    return num
             else:
                 self._prime_list.append(num)
-        return self
-    def __next__(self):
-        count = self._count
-        self._count += 1
-        if count < len(self._prime_list):
-            return self._prime_list[count]
-        else:
-            raise StopIteration
-
-print(*Primes(20))
+                return num
+        raise StopIteration
+print("Prime_iterator: ",*Primes(20))
 
 def pipeline(data, *funcs):
     for func in funcs:
