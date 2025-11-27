@@ -55,3 +55,10 @@ class Primes:
             raise StopIteration
 
 print(*Primes(20))
+
+def pipeline(data, *funcs):
+    for func in funcs:
+        data = func(data)
+    return data
+
+pipeline(2,factorial,lambda x:x**2,print)
