@@ -29,3 +29,29 @@ for prime in primes(20):
 
 factorials_square = map(lambda x: factorial(x) **2,[1,2,3,4])
 print( *factorials_square)
+
+class Primes:
+    def __init__(self,n):
+        self.n = n
+    def __iter__(self):
+        self._prime_list = []
+        self._count = 0
+        for num in range(2,self.n):
+            for prime in self._prime_list:
+                if num % prime == 0:
+                    break
+                if num < prime**2:
+                    self._prime_list.append(num)
+                    break
+            else:
+                self._prime_list.append(num)
+        return self
+    def __next__(self):
+        count = self._count
+        self._count += 1
+        if count < len(self._prime_list):
+            return self._prime_list[count]
+        else:
+            raise StopIteration
+
+print(*Primes(20))
