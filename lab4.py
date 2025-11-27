@@ -10,7 +10,7 @@ def factorial(n:int)-> int:
     else:
         return reduce(lambda x,y: x*y, range(2,n+1),1)
 
-def primes(n):
+def primes(n:int):
     prime_list = []
     for num in range(2,n):
         for prime in prime_list:
@@ -26,3 +26,6 @@ def primes(n):
     
 for prime in primes(20):
     print(prime)
+
+factorials_square = map(lambda x: factorial(x) **2,[1,2,3,4])
+print( *factorials_square)
