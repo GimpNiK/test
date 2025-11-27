@@ -10,3 +10,19 @@ def factorial(n:int)-> int:
     else:
         return reduce(lambda x,y: x*y, range(2,n+1),1)
 
+def primes(n):
+    prime_list = []
+    for num in range(2,n):
+        for prime in prime_list:
+            if num % prime == 0:
+                break
+            if num < prime**2:
+                prime_list.append(num)
+                yield num
+                break
+        else:
+            prime_list.append(num)
+            yield num
+    
+for prime in primes(20):
+    print(prime)
