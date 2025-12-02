@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+    {{header}}
+    <table>
+    {%for string in table%}
+        <tr>
+        {%for column in string%}
+            <td>{{column}}</td>
+        {%endfor%}
+        </tr>
+    {%endfor%}
+    </table>
+</body>
+</html>
