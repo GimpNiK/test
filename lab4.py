@@ -27,7 +27,7 @@ def primes(n:int):
 print([prime for prime in primes(30)])
     
 
-factorials_square = map(lambda x: factorial(x) **2,[1,2,3,4])
+factorials_square = map(lambda x: factorial(x)**2, [1,2,3,4])
 print( *factorials_square)
 
 class Primes:
