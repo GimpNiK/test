@@ -28,6 +28,63 @@ page1_layout.addWidget(install_btn)
 pages.addWidget(page1)
 
 
+page2 = QWidget()
+page2_layout = QVBoxLayout(page2)
+
+progress_bar_descr = QLabel("Готов к установке")
+progress_bar = QProgressBar()
+progress_bar.setRange(0, 100)
+progress_bar.setValue(0)
+show_results_btn = QPushButton("Показать результаты")
+
+page2_layout.addWidget(progress_bar_descr)
+page2_layout.addWidget(progress_bar)
+page2_layout.addWidget(show_results_btn)
+
+pages.addWidget(page2)
+
+
+timer = QTimer()
+def update_progress():
+    elapsed_time = 0
+    def run():
+        nonlocal elapsed_time
+        elapsed_time += 1
+        
+        current_os = input_os.currentText()
+        
+        progress_bar_descr.setText(
+            f"Идет установка для {current_os}.\n"
+            f"Прошло времени: {elapsed_time} секунд"
+        )
+        
+        
+        progress_value = min(elapsed_time * 10, 100)
+        progress_bar.setValue(progress_value)
+        
+        if progress_value >= 100:
+            timer.stop()
+            progress_bar_descr.setText(
+                f"Установка для {current_os} завершена!\n"
+                f"Общее время: {elapsed_time} секунд"
+            )
+    return run
+
+def start_installation():    
+    progress_bar_descr.setText(f"Начинаем установку для {input_os.currentText()}...")
+    progress_bar.setValue(0)
+    
+    pages.setCurrentIndex(1)
+
+    timer.start(1000)
+    timer.timeout.connect(update_progress())
+
+def show_results():
+     pages.setCurrentIndex(2)
+
+install_btn.clicked.connect(start_installation)
+show_results_btn.clicked.connect(show_results)
+
 
 mainwindow.adjustSize()
 mainwindow.show()
