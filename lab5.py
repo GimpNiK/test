@@ -43,6 +43,27 @@ page2_layout.addWidget(show_results_btn)
 
 pages.addWidget(page2)
 
+page3 = QWidget()
+page3_layout = QVBoxLayout(page3)
+page3_table = QTableWidget()
+
+page3_table.setHorizontalHeaderLabels(["Имя файла","Время установки"])
+data = [
+    ['encoding_utils.py',1.2],
+    ['archive_utils.py',3.2],
+    ['gui.py',4.2]
+]
+
+page3_table.setRowCount(len(data))
+page3_table.setColumnCount(len(data[0])) 
+for row in range(len(data)):
+            for col in range(len(data[0])):
+                item = QTableWidgetItem(str(data[row][col]))
+                page3_table.setItem(row, col, item)
+page3_table.resizeColumnsToContents()
+
+page3_layout.addWidget(page3_table)
+pages.addWidget(page3)
 
 timer = QTimer()
 def update_progress():
