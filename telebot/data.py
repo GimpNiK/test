@@ -1,75 +1,13 @@
 import json
 import urllib.parse
 import urllib.request
-from typing import Optional, Dict, List
+from typing import Dict, List
 from datetime import datetime
 from pathlib import Path
-import csv
-import os
 
 current_dir = Path(__file__).parent.absolute()
 chat_id_file = current_dir / "chat_id.txt"
-# class UserGroupManager:
-#     def __init__(self, filename='users.csv'):
-#         self.filename = filename
-#         self.users = self.load_users()
-    
-#     def load_users(self):
-#         """Загружает пользователей из CSV файла"""
-#         users = {}
-        
-#         if os.path.exists(self.filename):
-#             try:
-#                 with open(self.filename, 'r', encoding='utf-8') as file:
-#                     reader = csv.DictReader(file)
-#                     for row in reader:
-#                         user_id = row.get('user_id', '').strip()
-#                         group = row.get('group', '').strip()
-#                         if user_id:
-#                             users[user_id] = group
-#             except Exception as e:
-#                 print(f"Ошибка при чтении файла: {e}")
-        
-#         return users
-    
-#     def save_users(self):
-#         """Сохраняет пользователей в CSV файл"""
-#         try:
-#             with open(self.filename, 'w', encoding='utf-8', newline='') as file:
-#                 writer = csv.writer(file)
-#                 writer.writerow(['user_id', 'group'])
-                
-#                 for user_id, group in self.users.items():
-#                     writer.writerow([user_id, group])
-#         except Exception as e:
-#             print(f"Ошибка при сохранении: {e}")
-    
-#     def set_group(self, user_id, group):
-#         """Устанавливает группу для пользователя"""
-#         self.users[str(user_id)] = group
-#         self.save_users()
-    
-#     def get_group(self, user_id):
-#         """Получает группу пользователя"""
-#         return self.users.get(str(user_id), None)
-    
-#     def remove_user(self, user_id):
-#         """Удаляет пользователя"""
-#         user_id = str(user_id)
-#         if user_id in self.users:
-#             del self.users[user_id]
-#             self.save_users()
-#             return True
-#         return False
-    
-#     def get_all_users_in_group(self, group):
-#         """Получает всех пользователей в указанной группе"""
-#         return [user_id for user_id, user_group in self.users.items() 
-#                 if user_group == group]
-    
-#     def get_user_count(self):
-#         """Возвращает количество пользователей"""
-#         return len(self.users)
+
 
 def get_schedule(teacher: str, date: str) -> Dict[int, List[str]]:
     base_url = "https://tulsu.ru/schedule/queries/"
@@ -136,3 +74,12 @@ def chat_id_load():
 def chat_id_save(chat_id):
     with open(chat_id_file, "w", encoding="utf-8") as f:
         f.write(str(chat_id))
+
+get_time_lesson = {
+    1:"7:45",
+    2:"9:40",
+    3:"11:35",
+    4:"13:40",
+    5:"15:35",
+    6:"17:30",
+}
