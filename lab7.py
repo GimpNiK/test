@@ -33,7 +33,17 @@ async def main():
             session.add(Item(id=1, name="test", value=100))
     
 
+    async with AsyncSession(engine) as session:
+        async with session.begin():
+            result = await session.execute(
+                select(Item).where(Item.id == 1)
+            )
+            item = result.scalar_one()
+            
+            item.name = "updated"
+            item.value = 200
     
+    print("Запись обновлена")
 
 
 if __name__ == "__main__":
