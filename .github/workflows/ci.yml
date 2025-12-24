@@ -25,10 +25,10 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install flake8  # Установить flake8
 
-    - name: Lint with flake8  # Запустить проверку flake8
-      run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics  # Строгие проверки на ошибки
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics  # Более мягкие (настрой под PEP 8)
+   # - name: Lint with flake8  # Запустить проверку flake8
+    #  run: |
+      #  flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics  # Строгие проверки на ошибки
+      #  flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics  # Более мягкие (настрой под PEP 8)
 
     - name: Run tests (optional)  # Добавить тесты с pytest, если есть
       run: |

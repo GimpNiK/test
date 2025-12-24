@@ -4,8 +4,7 @@ from PyQt6.QtCore import QTimer
 
 lang = "eng"
 class LabelState:
-    
-    
+
     def __init__(self, widget, state,states):
         self.widget = widget
         self.state = state
