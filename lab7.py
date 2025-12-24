@@ -28,6 +28,11 @@ async def main():
         await conn.run_sync(Base.metadata.create_all)
     
 
+    async with AsyncSession(engine) as session:
+        async with session.begin():
+            session.add(Item(id=1, name="test", value=100))
+    
+
     
 
 
