@@ -7,11 +7,13 @@
 
 import asyncio
 from sqlalchemy import Column, Integer, String, select
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, query
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
 
 Base = declarative_base()
+DATABASE_URL = "sqlite+aiosqlite:///test.db"
+engine = create_async_engine(DATABASE_URL, echo=False)
 
 class Item(Base):
     __tablename__ = 'items'
@@ -20,16 +22,19 @@ class Item(Base):
     value = Column(Integer)
 
 
-DATABASE_URL = "sqlite+aiosqlite:///test.db"
-engine = create_async_engine(DATABASE_URL, echo=False)
+
 
 async def main():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     
 
+            
+      
     async with AsyncSession(engine) as session:
         async with session.begin():
+            if item := await session.get(Item, 1):
+                await session.delete(item)
             session.add(Item(id=1, name="test", value=100))
     
 
@@ -43,8 +48,8 @@ async def main():
             item.name = "updated"
             item.value = 200
     
-    print("Запись обновлена")
 
 
 if __name__ == "__main__":
     asyncio.run(main())
+    print("Succesful")
